@@ -1,0 +1,293 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix wikibase: <http://wikiba.se/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema: <http://schema.org/> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix data: <https://www.wikidata.org/wiki/Special:EntityData/> .
+@prefix s: <http://www.wikidata.org/entity/statement/> .
+@prefix ref: <http://www.wikidata.org/reference/> .
+@prefix v: <http://www.wikidata.org/value/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix wdtn: <http://www.wikidata.org/prop/direct-normalized/> .
+@prefix p: <http://www.wikidata.org/prop/> .
+@prefix ps: <http://www.wikidata.org/prop/statement/> .
+@prefix psv: <http://www.wikidata.org/prop/statement/value/> .
+@prefix psn: <http://www.wikidata.org/prop/statement/value-normalized/> .
+@prefix pq: <http://www.wikidata.org/prop/qualifier/> .
+@prefix pqv: <http://www.wikidata.org/prop/qualifier/value/> .
+@prefix pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> .
+@prefix pr: <http://www.wikidata.org/prop/reference/> .
+@prefix prv: <http://www.wikidata.org/prop/reference/value/> .
+@prefix prn: <http://www.wikidata.org/prop/reference/value-normalized/> .
+@prefix wdno: <http://www.wikidata.org/prop/novalue/> .
+
+data:Q69583635 a schema:Dataset ;
+	schema:about wd:Q69583635 ;
+	cc:license <http://creativecommons.org/publicdomain/zero/1.0/> ;
+	schema:softwareVersion "1.0.0" ;
+	schema:version "1548744953"^^xsd:integer ;
+	schema:dateModified "2021-12-23T12:11:36Z"^^xsd:dateTime .
+
+wd:Q69583635 a wikibase:Item .
+
+<https://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%AD%E3%83%A9%E3%82%A4%E3%83%96%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "ja" ;
+	schema:isPartOf <https://ja.wikipedia.org/> ;
+	schema:name "ホロライブプロダクション"@ja .
+
+<https://ja.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://zh.wikipedia.org/wiki/Hololive_production> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "zh" ;
+	schema:isPartOf <https://zh.wikipedia.org/> ;
+	schema:name "Hololive production"@zh .
+
+<https://zh.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://id.wikipedia.org/wiki/Hololive_Production> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "id" ;
+	schema:isPartOf <https://id.wikipedia.org/> ;
+	schema:name "Hololive Production"@id .
+
+<https://id.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://vi.wikipedia.org/wiki/Hololive_Production> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "vi" ;
+	schema:isPartOf <https://vi.wikipedia.org/> ;
+	schema:name "Hololive Production"@vi .
+
+<https://vi.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://en.wikipedia.org/wiki/Hololive_Production> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "en" ;
+	schema:isPartOf <https://en.wikipedia.org/> ;
+	schema:name "Hololive Production"@en .
+
+<https://en.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://pl.wikipedia.org/wiki/Hololive_Production> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "pl" ;
+	schema:isPartOf <https://pl.wikipedia.org/> ;
+	schema:name "Hololive Production"@pl .
+
+<https://pl.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://fi.wikipedia.org/wiki/Hololive_Production> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "fi" ;
+	schema:isPartOf <https://fi.wikipedia.org/> ;
+	schema:name "Hololive Production"@fi .
+
+<https://fi.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://ms.wikipedia.org/wiki/Hololive_Production> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "ms" ;
+	schema:isPartOf <https://ms.wikipedia.org/> ;
+	schema:name "Hololive Production"@ms .
+
+<https://ms.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://pt.wikipedia.org/wiki/Hololive_Production> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "pt" ;
+	schema:isPartOf <https://pt.wikipedia.org/> ;
+	schema:name "Hololive Production"@pt .
+
+<https://pt.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://tl.wikipedia.org/wiki/Hololive_Production> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "tl" ;
+	schema:isPartOf <https://tl.wikipedia.org/> ;
+	schema:name "Hololive Production"@tl .
+
+<https://tl.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://ko.wikipedia.org/wiki/%ED%99%80%EB%A1%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C_%ED%94%84%EB%A1%9C%EB%8D%95%EC%85%98> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "ko" ;
+	schema:isPartOf <https://ko.wikipedia.org/> ;
+	schema:name "홀로라이브 프로덕션"@ko .
+
+<https://ko.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://th.wikipedia.org/wiki/%E0%B9%82%E0%B8%AE%E0%B9%82%E0%B8%A5%E0%B9%84%E0%B8%A5%E0%B8%9F%E0%B9%8C_%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B8%94%E0%B8%B1%E0%B8%81%E0%B8%8A%E0%B8%B1%E0%B9%88%E0%B8%99> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "th" ;
+	schema:isPartOf <https://th.wikipedia.org/> ;
+	schema:name "โฮโลไลฟ์ โปรดักชั่น"@th .
+
+<https://th.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+<https://km.wikipedia.org/wiki/%E1%9E%A0%E1%9E%BC%E1%9E%A1%E1%9E%BC%E1%9E%A1%E1%9E%B6%E1%9E%99%E1%9E%A0%E1%9F%92%E1%9E%9C%E1%9F%8D_%E1%9E%94%E1%9F%92%E1%9E%9A%E1%9E%BC%E1%9E%8A%E1%9E%B6%E1%9E%80%E1%9E%9F%E1%9E%B9%E1%9E%93> a schema:Article ;
+	schema:about wd:Q69583635 ;
+	schema:inLanguage "km" ;
+	schema:isPartOf <https://km.wikipedia.org/> ;
+	schema:name "ហូឡូឡាយហ្វ៍ ប្រូដាកសឹន"@km .
+
+<https://km.wikipedia.org/> wikibase:wikiGroup "wikipedia" .
+
+wd:Q69583635 wdt:P31 wd:Q43229,
+		wd:Q5354754 ;
+	wdt:P856 <https://www.hololive.tv/> ;
+	wdt:P1889 wd:Q60990236,
+		wd:Q96277005 ;
+	wdt:P452 wd:Q19595701 ;
+	wdt:P527 wd:Q60649413,
+		wd:Q85327516,
+		wd:Q85327517,
+		wd:Q104732671,
+		wd:Q85323946,
+		wd:Q88387033,
+		wd:Q108068617,
+		wd:Q92181505,
+		wd:Q88874152,
+		wd:Q106811363,
+		wd:Q106714182,
+		wd:Q106833841,
+		wd:Q95972569,
+		wd:Q106840546,
+		wd:Q88885593,
+		wd:Q98774527,
+		wd:Q89771228,
+		wd:Q90815761,
+		wd:Q99470379,
+		wd:Q99470410,
+		wd:Q99470768,
+		wd:Q86731266,
+		wd:Q89035235,
+		wd:Q89780049,
+		wd:Q98101193,
+		wd:Q99413618,
+		wd:Q99413776,
+		wd:Q100304510,
+		wd:Q106596588,
+		wd:Q105432506,
+		wd:Q104776071,
+		wd:Q106248049,
+		wd:Q105772701,
+		wd:Q107380152,
+		wd:Q100556077,
+		wd:Q107120130,
+		wd:Q108220511,
+		wd:Q108223425,
+		wd:Q108223443,
+		wd:Q108223449,
+		wd:Q108223451,
+		wd:Q108223458,
+		wd:Q109742973,
+		wd:Q109742985,
+		wd:Q109742996,
+		wd:Q109743000,
+		wd:Q109743004 ;
+	wdt:P2002 "hololivetv",
+		"hololive_En",
+		"hololive_Id",
+		"hololive_Kr",
+		"hololive_In",
+		"011" ;
+	wdt:P6455 "286700005" ;
+	wdt:P5737 "Hololive" ;
+	wdt:P6900 "ホロライブ" ;
+	wdt:P154 <http://commons.wikimedia.org/wiki/Special:FilePath/Hololive%20Production%20logo.svg> ;
+	wdt:P910 wd:Q96788099 ;
+	wdt:P2671 "/g/11g_rlkhxp" ;
+	wdtn:P2671 <http://g.co/kg/g/11g_rlkhxp> ;
+	wdt:P1424 wd:Q96787016 ;
+	wdt:P749 wd:Q69352476 ;
+	wdt:P3984 "Hololive" ;
+	wdt:P7085 "hololive_music" ;
+	wdt:P8687 "+7181"^^xsd:decimal ;
+	wdt:P17 wd:Q17 ;
+	wdt:P355 wd:Q96277005,
+		wd:Q98983072,
+		wd:Q105638206,
+		wd:Q98671387,
+		wd:Q109850915 ;
+	wdt:P101 wd:Q55155641 ;
+	rdfs:label "ホロライブプロダクション"@ja ;
+	skos:prefLabel "ホロライブプロダクション"@ja ;
+	schema:name "ホロライブプロダクション"@ja ;
+	rdfs:label "Terbitan hololive"@ms ;
+	skos:prefLabel "Terbitan hololive"@ms ;
+	schema:name "Terbitan hololive"@ms ;
+	rdfs:label "Hololive Production"@en ;
+	skos:prefLabel "Hololive Production"@en ;
+	schema:name "Hololive Production"@en ;
+	rdfs:label "hololive"@es ;
+	skos:prefLabel "hololive"@es ;
+	schema:name "hololive"@es ;
+	rdfs:label "hololive production"@zh-cn ;
+	skos:prefLabel "hololive production"@zh-cn ;
+	schema:name "hololive production"@zh-cn ;
+	rdfs:label "hololive production"@zh ;
+	skos:prefLabel "hololive production"@zh ;
+	schema:name "hololive production"@zh ;
+	rdfs:label "hololive"@nl ;
+	skos:prefLabel "hololive"@nl ;
+	schema:name "hololive"@nl ;
+	rdfs:label "Hololive Production"@id ;
+	skos:prefLabel "Hololive Production"@id ;
+	schema:name "Hololive Production"@id ;
+	rdfs:label "Hololive Production"@vi ;
+	skos:prefLabel "Hololive Production"@vi ;
+	schema:name "Hololive Production"@vi ;
+	rdfs:label "Hololive"@it ;
+	skos:prefLabel "Hololive"@it ;
+	schema:name "Hololive"@it ;
+	rdfs:label "Hololive Production"@pl ;
+	skos:prefLabel "Hololive Production"@pl ;
+	schema:name "Hololive Production"@pl ;
+	rdfs:label "Hololive Production"@fi ;
+	skos:prefLabel "Hololive Production"@fi ;
+	schema:name "Hololive Production"@fi ;
+	rdfs:label "Hololive Production"@pt ;
+	skos:prefLabel "Hololive Production"@pt ;
+	schema:name "Hololive Production"@pt ;
+	rdfs:label "Hololive Production"@tl ;
+	skos:prefLabel "Hololive Production"@tl ;
+	schema:name "Hololive Production"@tl ;
+	rdfs:label "โฮโลไลฟ์โปรดักชัน"@th ;
+	skos:prefLabel "โฮโลไลฟ์โปรดักชัน"@th ;
+	schema:name "โฮโลไลฟ์โปรดักชัน"@th ;
+	rdfs:label "홀로라이브 프로덕션"@ko ;
+	skos:prefLabel "홀로라이브 프로덕션"@ko ;
+	schema:name "홀로라이브 프로덕션"@ko ;
+	rdfs:label "ហូឡូឡាយហ្វ៍ ប្រូដាកសឹន"@km ;
+	skos:prefLabel "ហូឡូឡាយហ្វ៍ ប្រូដាកសឹន"@km ;
+	schema:name "ហូឡូឡាយហ្វ៍ ប្រូដាកសឹន"@km ;
+	schema:description "バーチャルYouTuberの事務所"@ja,
+		"pejabat kendalian juru-YouTube maya"@ms,
+		"organisatie uit Japan"@nl,
+		"Japanese virtual YouTuber agency"@en,
+		"虚拟YouTuber事务所"@zh-cn,
+		"虛擬YouTuber事務所"@zh,
+		"منظمة"@ar,
+		"japońska agencja wirtualnych youtuberów"@pl,
+		"agen bakat pembuat konten virtual"@id,
+		"một công ty quản lý tài năng YouTuber ảo"@vi ;
+	skos:altLabel "هولولاءيۏ"@ms,
+		"Produksi hololive"@ms,
+		"hololive"@ms,
+		"تربيتن هولولاءيۏ"@ms,
+		"ڤرودوکسي هولولاءيۏ"@ms,
+		"Hololive"@en,
+		"ホロライブ"@ja,
+		"hololive"@ja,
+		"hololive"@vi,
+		"โฮโลไลฟ์"@th .
