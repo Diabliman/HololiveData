@@ -1,7 +1,7 @@
 (stats
   (meta
-    (timestamp "2021-12-30T16:55:45.734+01:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>)
-    (run@ "2021/12/30 16:55:45 CET")
+    (timestamp "2021-12-30T20:10:00.023+01:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>)
+    (run@ "2021/12/30 20:10:00 CET")
     (count 234))
   ((VAR <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wikiba.se/ontology#Item>)
    1)
