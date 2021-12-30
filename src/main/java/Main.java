@@ -18,7 +18,7 @@ public class Main {
                  PREFIX wdt: <http://www.wikidata.org/prop/direct/>
                  PREFIX p: <http://www.wikidata.org/prop/>
                  PREFIX ps: <http://www.wikidata.org/prop/statement/>
-                SELECT DISTINCT ?item ?itemLabel WHERE {
+                SELECT DISTINCT ?item WHERE {
                   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
                   {
                     SELECT DISTINCT ?item WHERE {
@@ -28,16 +28,23 @@ public class Main {
                     LIMIT 100
                   }
                 }""";
-        Query query = QueryFactory.create(sparqlQueryString1);
 
-        //QueryExecution qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
-        //ResultSet results = qexec.execSelect();
-        //ResultSetFormatter.out(System.out, results, query);
-        //qexec.close();
 
+        requeteOnline(sparqlQueryString1);
+    }
+
+    public static void requeteOnline(String queryString){
+        Query query = QueryFactory.create(queryString);
+
+        QueryExecution qexec = QueryExecutionFactory.sparqlService("https://query.wikidata.org/sparql", query);
+        ResultSet results = qexec.execSelect();
+        ResultSetFormatter.out(System.out, results, query);
+        qexec.close();
+    }
+    public static void requeteLocal(String queryString){
+        Query query = QueryFactory.create(queryString);
         Dataset dataset = TDBFactory.createDataset("src/main/resources/local_endpoint");
         Model model = dataset.getDefaultModel();
-
 
         try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
             ResultSet results = qexec.execSelect();
