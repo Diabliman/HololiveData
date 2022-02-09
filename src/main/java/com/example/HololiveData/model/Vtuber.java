@@ -1,4 +1,4 @@
-package model;
+package com.example.HololiveData.model;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
