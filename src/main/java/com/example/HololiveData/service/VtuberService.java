@@ -4,7 +4,7 @@ import com.example.HololiveData.model.Vtuber;
 import com.example.HololiveData.queries.SparqlQueries;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -14,5 +14,22 @@ public class VtuberService {
 
     public List<Vtuber> getVtubers() {
         return this.vtubers;
+    }
+
+    public Set<String> getGenerations() {
+        return vtubers.stream().map(Vtuber::getGeneration).collect(Collectors.toSet());
+    }
+
+    public Map<String, List<Vtuber>> getVtuberOrderedPerGen() {
+        final Map<String, List<Vtuber>> vtuberOrdered = new HashMap<>();
+        for (final Vtuber v : vtubers) {
+            if (vtuberOrdered.containsKey(v.getGeneration())) {
+                vtuberOrdered.get(v.getGeneration()).add(v);
+            } else {
+                vtuberOrdered.put(v.getGeneration(), new ArrayList<>());
+                vtuberOrdered.get(v.getGeneration()).add(v);
+            }
+        }
+        return vtuberOrdered;
     }
 }

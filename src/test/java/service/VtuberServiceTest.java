@@ -3,6 +3,7 @@ package service;
 import com.example.HololiveData.model.SocialMedias;
 import com.example.HololiveData.model.Vtuber;
 import com.example.HololiveData.queries.SparqlQueries;
+import com.example.HololiveData.service.VtuberService;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
@@ -17,8 +18,10 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@ComponentScan
+@ComponentScan(basePackages = "com.example.HololiveData")
 public class VtuberServiceTest {
+
+    VtuberService vtuberService = new VtuberService();
 
     @Test
     public void testGeneration() {
@@ -49,5 +52,19 @@ public class VtuberServiceTest {
         final List<Vtuber> collect = SparqlQueries.getVtuberList().stream().map(SparqlQueries::buildVtuber).collect(Collectors.toList());
 
         assertThat(collect.size()).isGreaterThan(0);
+    }
+
+    @Test
+    public void testGenerations() {
+        final Set<String> generations = vtuberService.getGenerations();
+
+        assertThat(generations.size()).isGreaterThan(0);
+    }
+
+    @Test
+    public void vtuberOrdered() {
+        final Map<String, List<Vtuber>> vtuberOrderedPerGen = vtuberService.getVtuberOrderedPerGen();
+
+        assertThat(vtuberOrderedPerGen.size()).isGreaterThan(0);
     }
 }
