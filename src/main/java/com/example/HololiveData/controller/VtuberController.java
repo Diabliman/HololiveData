@@ -14,8 +14,7 @@ public class VtuberController {
 
     @GetMapping("/test")
     public String index(final Model model) {
-
-        model.addAttribute("vtubers", this.vtuberService.getVtubers());
+        model.addAttribute("vtubers", vtuberService.getVtubers());
         System.out.println("test");
         return "index";
     }

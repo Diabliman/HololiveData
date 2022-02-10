@@ -10,7 +10,9 @@ import java.util.stream.Collectors;
 @Service
 public class VtuberService {
 
+    List<Vtuber> vtubers = SparqlQueries.getVtuberList().stream().map(SparqlQueries::buildVtuber).collect(Collectors.toList());
+
     public List<Vtuber> getVtubers() {
-        return SparqlQueries.getVtuberList().stream().map(SparqlQueries::buildVtuber).collect(Collectors.toList());
+        return this.vtubers;
     }
 }

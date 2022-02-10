@@ -1,5 +1,6 @@
 package service;
 
+import com.example.HololiveData.model.SocialMedias;
 import com.example.HololiveData.model.Vtuber;
 import com.example.HololiveData.queries.SparqlQueries;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,15 +31,23 @@ public class VtuberServiceTest {
 
     @Test
     public void testFollowers() {
-        final List<List<String>> socialMedia = SparqlQueries.getSocialMedias("Q60649413");
+        final SocialMedias socialMedia = SparqlQueries.getSocialMedias("Q60649413");
 
-        assertThat(socialMedia.size()).isEqualTo(2);
+        assertThat(socialMedia.getTwitter().getUrl()).isNotNull();
+        assertThat(socialMedia.getYt().getUrl()).isNotNull();
     }
 
     @Test
     public void buildVtuber() {
-        final Vtuber sora = SparqlQueries.buildVtuber("Q60649413");
+        final Vtuber vtuber = SparqlQueries.buildVtuber("Q104732671");
 
-        System.out.println(sora.getEyeColor());
+        System.out.println(vtuber.getEyeColor());
+    }
+
+    @Test
+    public void buildAllVtubers() {
+        final List<Vtuber> collect = SparqlQueries.getVtuberList().stream().map(SparqlQueries::buildVtuber).collect(Collectors.toList());
+
+        assertThat(collect.size()).isGreaterThan(0);
     }
 }
