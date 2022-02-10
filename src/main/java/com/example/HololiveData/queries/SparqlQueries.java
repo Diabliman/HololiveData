@@ -1,14 +1,18 @@
 package com.example.HololiveData.queries;
 
 import com.example.HololiveData.model.Vtuber;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.tdb.TDBFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
 
 public class SparqlQueries {
+
+    public static Map<String, List<String>> genAndDateInfo = getVtuberGenerationAndDate();
 
     public static List<String> getVtuberList() {
         final String queryString = """
@@ -48,17 +52,36 @@ public class SparqlQueries {
                 vtuberList.add(split[split.length - 1]);
             }
         }
-
-
         return vtuberList;
 
     }
 
+    public static Set<String> getGenerations() {
+        final Set<String> generations = new HashSet<>();
+        genAndDateInfo.keySet().forEach(it ->
+                generations.add(genAndDateInfo.get(it).get(2))
+        );
+        return generations;
+    }
+
     public static Vtuber buildVtuber(final String qid) {
+        final List<String> vtuberData = getVtuberData(qid).get(0);
+        final List<String> genInfo = genAndDateInfo.get(qid);
+        final List<String> subsInfo = getSocialMedias(qid).get(0);
         return new Vtuber()
                 .setId(qid)
-                .setName(getName(qid))
+                .setJapName(vtuberData.get(0))
+                .setHeight(vtuberData.get(1))
+                .setStartTime(getDate(genInfo.get(3)))
+                .setGeneration(genInfo.get(2))
+                .setHairColor(vtuberData.get(3))
+                .setEyeColor(vtuberData.get(4))
+                .setName(vtuberData.get(5))
                 ;
+    }
+
+    private static Date getDate(final String date) {
+        return Date.from(LocalDateTime.parse(date).atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public static List<List<String>> getAllInfo(final String qid) {
@@ -107,24 +130,86 @@ public class SparqlQueries {
 
     }
 
-    private static List<List<String>> getVtuberData(final String qid) {
+    public static Map<String, List<String>> getVtuberGenerationAndDate() {
         final String queryString = """
+                PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+                PREFIX bd: <http://www.bigdata.com/rdf#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX wd: <http://www.wikidata.org/entity/>
+                PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+                PREFIX ps: <http://www.wikidata.org/prop/statement/>
+                PREFIX wikibase: <http://wikiba.se/ontology#>
+                PREFIX p: <http://www.wikidata.org/prop/>
+                SELECT ?vtuber ?vtuberLabel ?generationLabel ?date_debutLabel
+                WHERE
+                {
+                     wd:Q69583635 p:P527 ?statement.
+                     ?statement ps:P527 ?vtuber.
+                     ?statement pq:P580 ?date_debut .
+                     ?statement pq:P361 ?generation .
+
+                     SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+                }
+                ORDER BY ?vtuber
+                """;
+        final Query query = QueryFactory.create(queryString);
+        final QueryExecution qexec = QueryExecutionFactory.sparqlService("https://query.wikidata.org/sparql", query);
+        final ResultSet results = qexec.execSelect();
+        final List<List<String>> resultAsStringList = getResultAsStringList(results);
+        final Map<String, List<String>> vtuberMap = new HashMap<>();
+        String s;
+        for (final List<String> vtuber : resultAsStringList) {
+            s = vtuber.get(0);
+            s = s.substring(s.lastIndexOf("/") + 1);
+            vtuberMap.put(s, vtuber);
+        }
+        return vtuberMap;
+    }
+
+    public static List<List<String>> getSocialMedias(final String qid) {
+        final String queryString = """
+                PREFIX bd: <http://www.bigdata.com/rdf#>
+                PREFIX wd: <http://www.wikidata.org/entity/>
+                PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+                PREFIX ps: <http://www.wikidata.org/prop/statement/>
+                PREFIX wikibase: <http://wikiba.se/ontology#>
+                PREFIX p: <http://www.wikidata.org/prop/>
+                SELECT (Max(?nbSubs) as ?max_nbSubs) ?twitter_id ?yt_id
+                WHERE
+                {
+                     wd:Q60649413 p:P8687 ?statement.
+                     ?statement ps:P8687 ?nbSubs.
+                     {?statement pq:P6552 ?twitter_id .}
+                    UNION
+                     {?statement pq:P2397 ?yt_id .}
+                                
+                     SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+                }
+                GROUP BY ?twitter_id ?yt_id
+                """.replace("$qid", qid);
+        final Query query = QueryFactory.create(queryString);
+        final QueryExecution qexec = QueryExecutionFactory.sparqlService("https://query.wikidata.org/sparql", query);
+        final ResultSet results = qexec.execSelect();
+        return getResultAsStringList(results);
+    }
+
+    public static List<List<String>> getVtuberData(final String qid) {
+        final String queryString = """
+                PREFIX wdt: <http://www.wikidata.org/prop/direct/>
                 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                 PREFIX wd: <http://www.wikidata.org/entity/>
                 SELECT  ?label ?date_debut ?native_name ?eye_color_label ?hair_color_label ?height
                 WHERE {
-                        wd:Q60649413 rdfs:label ?label .
-                        wd:Q60649413 wdt:P2031 ?date_debut .
-                        wd:Q60649413 wdt:P1559 ?native_name .
-                        wd:Q60649413 wdt:P1340 ?eye_color .
+                        wd:$qid rdfs:label ?label .
+                        wd:$qid wdt:P2031 ?date_debut .
+                        wd:$qid wdt:P1559 ?native_name .
+                        wd:$qid wdt:P1340 ?eye_color .
                         ?eye_color rdfs:label ?eye_color_label .
-                        wd:Q60649413 wdt:P1884 ?hair_color .
+                        wd:$qid wdt:P1884 ?hair_color .
                         ?hair_color rdfs:label ?hair_color_label .
-                        wd:Q60649413 wdt:P1884 ?hair_color .
-                        wd:Q60649413 wdt:P2048 ?height .
-                  Optional{   
-                  wd:Q60649413 wdt:P2032 ?date_fin .
-                  }
+                        wd:$qid wdt:P1884 ?hair_color .
+                        wd:$qid wdt:P2048 ?height .
+
                         FILTER (langMatches( lang(?label), "EN" ) )
                         FILTER(LANGMATCHES(LANG(?eye_color_label), "en"))
                         FILTER(LANGMATCHES(LANG(?hair_color_label), "en"))
@@ -141,7 +226,15 @@ public class SparqlQueries {
         while (results.hasNext()) {
             final ArrayList<String> values = new ArrayList<>();
             final QuerySolution next = results.next();
-            next.varNames().forEachRemaining(varName -> values.add(next.get(varName).toString()));
+            next.varNames().forEachRemaining(varName -> {
+                String s = next.get(varName).toString();
+                if (s.contains("^")) {
+                    s = StringUtils.substringBefore(s, '^');
+                } else if (s.contains("@")) {
+                    s = StringUtils.substringBefore(s, '@');
+                }
+                values.add(s);
+            });
             resultsString.add(values);
         }
         results.close();
