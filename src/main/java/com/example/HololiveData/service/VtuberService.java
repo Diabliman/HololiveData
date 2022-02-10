@@ -16,8 +16,19 @@ public class VtuberService {
         return this.vtubers;
     }
 
+
+
     public Set<String> getGenerations() {
         return vtubers.stream().map(Vtuber::getGeneration).collect(Collectors.toSet());
+    }
+
+    public Vtuber getVtuberByID(String id){
+        for (Vtuber v: vtubers) {
+            if (v.getId().equals(id)){
+                return v;
+            }
+        }
+        return null;
     }
 
     public Map<String, List<Vtuber>> getVtuberOrderedPerGen() {

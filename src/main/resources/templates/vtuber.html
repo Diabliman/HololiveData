@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/fragments/main_layout :: head(~{::title})">
+    <title th:text="'VTuber - '+ ${pageTitle}"></title>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav th:replace="/fragments/main_layout :: nav(~{::#actualPage})"></nav>
+
+<div th:replace="/fragments/main_layout :: body_content(~{:: #up_content})">
+    <div id="up_content">
+        <div class="row">
+            <div class="col">
+                <img th:src="${vtuber.getImageUrl()}" th:width="300" th:height="300">
+            </div>
+            <div class="col ">
+                <div class="row d-flex justify-content-center">
+                    <h3 th:text="${vtuber.getGeneration()}"></h3>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <h4 th:text="${vtuber.getName()}"></h4>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <h5 th:if="${vtuber.getJapName()}" th:text="${vtuber.getJapName()}"></h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <th:block >
+                <div class="col">
+                    <h4>Characteristics</h4>
+                    <ul>
+                        <li th:if="${!vtuber.getHeight().isEmpty()}" th:text="'Height : ' + ${vtuber.getHeight()} + 'cm'"></li>
+                        <li th:if="${!vtuber.getHairColor().isEmpty()}" th:text="'Hair color : ' + ${vtuber.getHairColor()}"></li>
+                        <li th:if="${!vtuber.getEyeColor().isEmpty()}" th:text="'Eyes color : '+ ${vtuber.getEyeColor()}"></li>
+                        <li th:if="${vtuber.getStartTime()}" th:text="'Debut date : ' + ${vtuber.getStartTime()}"></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h4>Social medias</h4>
+                    <ul>
+                        <li th:if="${!vtuber.getYtUrl().isEmpty()}">
+                            Youtube channel : <a th:href="'https://www.youtube.com/channel/'+${vtuber.getYtUrl()}+'/videos'">Link</a>
+
+                        </li>
+                        <li th:if="${vtuber.getYtSubs()}" th:text="'Youtube subscriber counter : '+ ${vtuber.getYtSubs()}"></li>
+                        <li th:if="${!vtuber.getTwitterUrl().isEmpty()}" th:text="'Twitter id : ' + ${vtuber.getTwitterUrl()}"></li>
+                        <li th:if="${vtuber.getTwitterSubs()}" th:text="'Twitter follower amount : ' + ${vtuber.getTwitterSubs()}"></li>
+                    </ul>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</body>
+</html>

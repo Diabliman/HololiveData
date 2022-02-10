@@ -1,12 +1,39 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head th:replace="/fragments/main_layout :: head(~{::title})">
+    <title th:text="${pageTitle}"></title>
 </head>
 <body>
-<th:block th:each="vtuber : ${vtubers}">
-    <li th:utext="${vtuber.getName()}">..</li>
-</th:block>
+
+<!-- Navigation -->
+<nav th:replace="/fragments/main_layout :: nav(~{::#actualPage})"></nav>
+
+<div th:replace="/fragments/main_layout :: body_content(~{:: #up_content})">
+    <div id="up_content">
+        <th:block th:each="generation : ${vtuberPerGeneration}">
+            <div class="row d-flex justify-content-center">
+                <h2 class="text-center" th:text="${generation.getKey()}">generationTitle</h2>
+            </div>
+            <div class="row">
+                <th:block th:each="vtuber :  ${generation.value}">
+                    <div class="col-sm ">
+                        <div class="row d-flex justify-content-center">
+                            <a th:href="@{/vtuber/{id}(id=${vtuber.id})}">
+                                <img th:src="${vtuber.getImageUrl()}" th:width="200" th:height="200">
+                            </a>
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <a th:href="@{/vtuber/{id}(id=${vtuber.id})}" th:text="${vtuber.getName()}"></a>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </th:block>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </body>
 </html>
