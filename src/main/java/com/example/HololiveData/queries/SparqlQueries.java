@@ -1,11 +1,19 @@
 package com.example.HololiveData.queries;
 
 import com.example.HololiveData.model.Vtuber;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.tdb.TDBFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -67,7 +75,7 @@ public class SparqlQueries {
     public static Vtuber buildVtuber(final String qid) {
         final List<String> vtuberData = getVtuberData(qid).get(0);
         final List<String> genInfo = genAndDateInfo.get(qid);
-        final List<String> subsInfo = getSocialMedias(qid).get(0);
+        final List<List<String>> subsInfo = getSocialMedias(qid);
         return new Vtuber()
                 .setId(qid)
                 .setJapName(vtuberData.get(0))
@@ -77,11 +85,39 @@ public class SparqlQueries {
                 .setHairColor(vtuberData.get(3))
                 .setEyeColor(vtuberData.get(4))
                 .setName(vtuberData.get(5))
+                .setImageUrl(getImageUrl(subsInfo.get(0).get(0)))
+                .setYtUrl(subsInfo.get(0).get(0))
+                .setYtSubs(Long.parseLong(subsInfo.get(0).get(1)))
+                .setTwitterSubs(Long.parseLong(subsInfo.get(1).get(0)))
+                .setTwitterUrl(subsInfo.get(1).get(1))
                 ;
     }
 
+    private static String getImageUrl(final String ytUrl) {
+        final String sURL = "https://api.holotools.app/v1/channels/youtube/" + ytUrl; //just a string
+
+        // Connect to the URL using java's native library
+
+        try {
+            final URL url = new URL(sURL);
+            final URLConnection request;
+            request = url.openConnection();
+            request.connect();
+            // Convert to a JSON object to print data
+            final JsonParser jp = new JsonParser(); //from gson
+            final JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
+            final JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object.
+            return rootobj.get("photo").getAsString();
+        } catch (final IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+
+    }
+
     private static Date getDate(final String date) {
-        return Date.from(LocalDateTime.parse(date).atZone(ZoneId.systemDefault()).toInstant());
+        return Date.from(LocalDateTime.parse(date.substring(0, date.length() - 1)).atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public static List<List<String>> getAllInfo(final String qid) {
@@ -240,4 +276,5 @@ public class SparqlQueries {
         results.close();
         return resultsString;
     }
+
 }

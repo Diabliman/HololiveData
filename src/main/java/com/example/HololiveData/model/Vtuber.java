@@ -13,6 +13,7 @@ public class Vtuber {
     private long ytSubs;
     private String ytUrl;
     private long twitterSubs;
+    private String twitterUrl;
     private Date startTime;
     private String generation;
     private String imageUrl;
